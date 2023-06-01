@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 052711bf4ce326647bbfff940d0b144c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bossPrefab: {fileID: 1520695602998059495, guid: 95a72c8b61c3e3342a5a83f6f79ac77e, type: 3}
+  - prepareTextMesh: {instanceID: 0}
+  - countdownTextMesh: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

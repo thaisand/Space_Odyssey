@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 94ff3f9235a29ca48beb7ee40201718a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+<<<<<<< Updated upstream
+  defaultReferences:
+  - CoinPrefab: {fileID: 2734281657491286813, guid: 6a8b655c6bcb9ff4795e0981f6a07801, type: 3}
+  - currentCoin: {fileID: 2734281657491286813, guid: 6a8b655c6bcb9ff4795e0981f6a07801, type: 3}
+=======
+  defaultReferences: []
+>>>>>>> Stashed changes
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
