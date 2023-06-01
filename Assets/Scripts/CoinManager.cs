@@ -14,28 +14,36 @@ public class CoinManager : MonoBehaviour
     private GameObject currentCoin;
     private List<Transform> availableWaypoints; // Lista de waypoints disponíveis para spawn
 
+    public enum SearchMethod
+    {
+        DepthFirst,
+        BreadthFirst
+    }
+
+    public SearchMethod MethodOfSearch = SearchMethod.DepthFirst;
+
     private void Start()
     {
         availableWaypoints = new List<Transform>(Waypoints);
         Invoke("StartSpawningCoins", initialDelay);
     }
 
-        private void StartSpawningCoins()
+    private void StartSpawningCoins()
     {
         InvokeRepeating("SpawnCoin", 0f, spawnInterval);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-    if (other.CompareTag("Player"))
-    {
-        if (other.gameObject.GetComponent<CriarBoss>() == null) // Verifica se o objeto não é o boss
+        if (other.CompareTag("Player"))
         {
-            Destroy(currentCoin);
-            SpawnCoin();
+            if (other.gameObject.GetComponent<CriarBoss>() == null) // Verifica se o objeto não é o boss
+            {
+                Destroy(currentCoin);
+                SpawnCoin();
+            }
         }
     }
-}
 
     public void SpawnCoin()
     {
@@ -45,9 +53,9 @@ public class CoinManager : MonoBehaviour
             if (CoinPrefab != null && BossWaypoints.Count > 0)
             {
                 Transform farthestWaypoint = FindFarthestWaypoint();
-            currentCoin = Instantiate(CoinPrefab, farthestWaypoint.position, Quaternion.identity);
-            availableWaypoints.Remove(farthestWaypoint);
-            Destroy(currentCoin, 10f); // Destruir após 10 segundos
+                currentCoin = Instantiate(CoinPrefab, farthestWaypoint.position, Quaternion.identity);
+                availableWaypoints.Remove(farthestWaypoint);
+                Destroy(currentCoin, 10f); // Destruir após 10 segundos
             }
             else
             {
@@ -68,11 +76,27 @@ public class CoinManager : MonoBehaviour
             Debug.LogWarning("O prefab da moeda ou a lista de waypoints não foi atribuída no editor da Unity ou todos os waypoints foram utilizados.");
         }
     }
-    
 
     private Transform FindFarthestWaypoint()
     {
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Escolher o método de busca (Profundidade ou Largura)
+        Transform farthestWaypoint;
+        if (MethodOfSearch == SearchMethod.DepthFirst)
+        {
+            farthestWaypoint = DepthFirstSearch(playerTransform);
+        }
+        else
+        {
+            farthestWaypoint = BreadthFirstSearch(playerTransform);
+        }
+
+        return farthestWaypoint;
+    }
+
+    private Transform DepthFirstSearch(Transform playerTransform)
+    {
         Transform farthestWaypoint = null;
         float maxDistanceX = float.MinValue;
         float maxDistanceY = float.MinValue;
@@ -86,6 +110,27 @@ public class CoinManager : MonoBehaviour
             {
                 maxDistanceX = distanceX;
                 maxDistanceY = distanceY;
+                farthestWaypoint = waypoint;
+            }
+        }
+
+        return farthestWaypoint;
+    }
+
+    private Transform BreadthFirstSearch(Transform playerTransform)
+    {
+        Transform farthestWaypoint = null;
+        float maxDistance = float.MinValue;
+        Queue<Transform> queue = new Queue<Transform>(availableWaypoints);
+
+        while (queue.Count > 0)
+        {
+            Transform waypoint = queue.Dequeue();
+            float distance = Vector3.Distance(waypoint.position, playerTransform.position);
+
+            if (distance > maxDistance)
+            {
+                maxDistance = distance;
                 farthestWaypoint = waypoint;
             }
         }

@@ -1804,6 +1804,7 @@ MonoBehaviour:
   spawnInterval: 30
   initialDelay: 10
   BossWaypoints: []
+  MethodOfSearch: 0
 --- !u!1 &425831492
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,6 +4551,7 @@ MonoBehaviour:
   - {fileID: 1752833960}
   - {fileID: 143125819}
   - {fileID: 288430633}
+  MethodOfSearch: 0
 --- !u!1 &1221446653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6770,7 +6772,7 @@ MonoBehaviour:
   bossPrefab2: {fileID: 7683106086309250, guid: dda97c241c3f1f649b2f4aeab8274f70, type: 3}
   prepareTextMesh: {fileID: 871094138}
   countdownTextMesh: {fileID: 1221446655}
-  tempoInicial: 15
+  tempoInicial: 50
   intervalo: 120
 --- !u!4 &1884776553
 Transform:
@@ -7455,6 +7457,7 @@ MonoBehaviour:
   spawnInterval: 30
   initialDelay: 20
   BossWaypoints: []
+  MethodOfSearch: 0
 --- !u!1 &2104943783
 GameObject:
   m_ObjectHideFlags: 0
